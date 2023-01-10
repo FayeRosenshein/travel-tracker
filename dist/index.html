@@ -20,15 +20,16 @@
 			<div class="welcome-banner-right"></div>
 		</section>
 	</nav>
-	<section class="log-in-container" id="logInContainer">
-		<article class="log-in" id="logIn">
-			<input placeholder="username" required>
-			<div class="user-name" id="userName"></div>
-			<div class="pass-word" id="passWord"></div>
+	<section>
+		<article class="log-in-section" id="logInSection">
+			<form class="log-in">
+				<input type="text" placeholder="username" class="user-name" required>
+				<input type="password" placeholder="password" class="pass-word" required>
+			</form>
 		</article>
 	</section>
-	<section class="dashboard-container" id="dashboardContainer">
-		<article class="book-a-new-trip" id="newTrip">
+	<section class="dashboard-container hidden">
+		<article class="book-a-new-trip">
 			<button class="trips" id="newTripButon">
 				<h3 class="book-a-new-trip title" id="bookANewTrip">BOOK A NEW TRIP</h3>
 			</button>
@@ -42,7 +43,18 @@
 				<h3 class="pending-trip title">PENDING TRIPS</h3>
 			</button>
 		</article>
-
+		<article class="data-entry">
+			<form class="data-entry-form" id="dataEntryForm" aria-expanded="false">
+				<label for="startCalendarInput" class="start_calendar">Select a Date</label>
+				<input type="date" id="startDateCalendar" name="start_date" max="" required>
+				<label for="endCalendarInput" class="end_calendar">Select a Date</label>
+				<input type="date" id="endDateCalendar" name="end_date" max="" required>
+				<label for="number_of_people_input" class="people-input-labels">Number of people on the trip</label>
+				<input type="number" name="number_of_people" class="user-input-fields" id="userStepInput" min="0"
+					placeholder="1" required>
+				<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
+			</form>
+		</article>
 
 
 
