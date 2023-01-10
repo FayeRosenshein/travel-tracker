@@ -8,7 +8,9 @@
 	<title>Travel Tracker</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins:wght@300&family=Raleway:wght@100&display=swap"rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins:wght@300&family=Raleway:wght@100&display=swap"
+		rel="stylesheet">
 </head>
 
 <body>
@@ -32,7 +34,7 @@
 			</form>
 		</article>
 	</section>
-	<section class="dashboard-container ">
+	<section class="dashboard-container hidden">
 		<div class="new-trips">
 			<button class="trips" id="newTripButon">
 				<h3 class="title" id="bookANewTrip">BOOK A NEW TRIP</h3>
@@ -54,18 +56,37 @@
 			</button>
 		</div>
 	</section>
-	<section class="travel-input hidden">
-		<article class="data-entry">
-			<form class="data-entry-form" id="dataEntryForm" aria-expanded="false">
-				<label for="startCalendarInput" class="start_calendar">Select a Date</label>
-				<input type="date" id="startDateCalendar" name="start_date" max="" required>
-				<label for="endCalendarInput" class="end_calendar">Select a Date</label>
-				<input type="date" id="endDateCalendar" name="end_date" max="" required>
-				<label for="number_of_people_input" class="people-input-labels">Number of people on the trip</label>
-				<input type="number" name="number_of_people" class="user-input-fields" id="userStepInput" min="0"
-					placeholder="1" required>
-				<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
-			</form>
+	<section class="travel-input ">
+		<article class="form">
+			<div class="date-people-location">
+				<form class="date-entry-form" id="dateEntryForm">
+					<!-- <label for="startCalendarInput" class="start_calendar">Select a Date</label> -->
+					<input type="date" id="startDateCalendar" name="start_date" max="" required>
+					<!-- <label for="endCalendarInput" class="end_calendar">Select a Date</label> -->
+					<input type="date" id="endDateCalendar" name="end_date" max="" required>
+					<!-- <label for="number_of_people_input" class="people-input-labels">Number of people on the trip</label> -->
+					<input type="number" name="number_of_people" class="number-of-people" id="nuberOfPeople" min="1"
+						placeholder="1" required>
+				</form>
+				<form class="list-of-destinations-form" id="listOfDestinationForm">
+					<div class="dropdown">
+						<button class="dropbutton" id="dropdown-button" aria-controls="dropdown-content">List Of
+							Destinations</button>
+						<menu class="data-dropdown" id="dropdown-content" aria-expanded="false">
+							<button class="select-place drop-option" id="place-selection"
+								aria-controls="destinationEntryForm">location</button>
+						</menu>
+					</div>
+				</form>
+			</div>
+		</article>
+		<form class="submit-button">
+			<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
+		</form>
+		<article class="cost">
+			<div class="total-cost">
+				<h4 class=""></h4>
+			</div>
 		</article>
 	</section>
 

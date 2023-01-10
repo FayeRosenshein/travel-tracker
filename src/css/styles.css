@@ -8,6 +8,7 @@ body {
 	flex-direction: row;
 	justify-content: space-around;
 }
+
 .dashboard-container {
 	display: flex;
 	flex-direction: column;
@@ -25,30 +26,24 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .new-trips {
 	background-image: url('/dist/assets/littleBus3.png');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .upcoming-trips {
 	background-image: url('/dist/assets/littleBus2\ 2.png');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .past-trips {
 	background-image: url('/dist/assets/littleBus4\ 2.png');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .pending-trips {
 	background-image: url('/dist/assets/littleBus5.png');
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .trips,
@@ -60,6 +55,63 @@ body {
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
+}
+
+.travel-input {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50vh;
+	width: 85vw;
+	background-image: url('/dist/assets/littleBus7.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.date-people-location {
+	width: 70vw;
+	height: 45vh;
+	background-color: #E6E6E6;
+	display: flex;
+	justify-content: space-between;
+}
+
+.date-entry-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.list-of-destinations-form {
+	padding: 60px 50px 0px 0px;
+}
+
+.submit-button {
+	padding-right: 50px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.cost {
+	height: 30vh;
+	width: 85vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid black;
+}
+
+.total-cost {
+	height: 25vh;
+	width: 65vw;
+	background-color: #E6E6E6;
 }
 
 .hidden {
