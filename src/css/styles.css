@@ -1,21 +1,67 @@
 body {
-	
+	background-color: rgba(203, 92, 0, 1);
 }
+
 .welcome-banner {
 	width: 40vw;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 }
+.dashboard-container {
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.new-trips,
+.upcoming-trips,
+.past-trips,
+.pending-trips {
+	height: 15vh;
+	width: 85vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.new-trips {
+	background-image: url('/dist/assets/littleBus3.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.upcoming-trips {
+	background-image: url('/dist/assets/littleBus2\ 2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.past-trips {
+	background-image: url('/dist/assets/littleBus4\ 2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.pending-trips {
+	background-image: url('/dist/assets/littleBus5.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 .trips,
 .log-in {
+	height: 10vh;
+	width: 60vw;
+	border-radius: 10px;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
 }
- 
+
 .hidden {
 	display: none;
 }

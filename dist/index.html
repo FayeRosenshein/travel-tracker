@@ -8,7 +8,7 @@
 	<title>Travel Tracker</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<linkhref="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins:wght@300&family=Raleway:wght@100&display=swap"rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins:wght@300&family=Raleway:wght@100&display=swap"rel="stylesheet">
 </head>
 
 <body>
@@ -25,28 +25,34 @@
 		</section>
 	</nav>
 	<section>
-		<article class="log-in-section" id="logInSection">
+		<article class="log-in-section hidden" id="logInSection">
 			<form class="log-in">
 				<input type="text" placeholder="username" class="user-name" required>
 				<input type="password" placeholder="password" class="pass-word" required>
 			</form>
 		</article>
 	</section>
-	<section class="dashboard-container hidden">
-		<article class="book-a-new-trip">
+	<section class="dashboard-container ">
+		<div class="new-trips">
 			<button class="trips" id="newTripButon">
-				<h3 class="book-a-new-trip title" id="bookANewTrip">BOOK A NEW TRIP</h3>
+				<h3 class="title" id="bookANewTrip">BOOK A NEW TRIP</h3>
 			</button>
+		</div>
+		<div class="upcoming-trips">
 			<button class="trips" id="upcomingTripButon">
-				<h3 class="upcoming-trip title">UPCOMING TRIPS</h3>
+				<h3 class="title">UPCOMING TRIPS</h3>
 			</button>
+		</div>
+		<div class="past-trips">
 			<button class="trips" id="pastTripsButton">
-				<h3 class="past-trip title">PAST TRIPS</h3>
+				<h3 class="title">PAST TRIPS</h3>
 			</button>
+		</div>
+		<div class="pending-trips">
 			<button class="trips" id="pendingTripsButton">
 				<h3 class="pending-trip title">PENDING TRIPS</h3>
 			</button>
-		</article>
+		</div>
 	</section>
 	<section class="travel-input hidden">
 		<article class="data-entry">
