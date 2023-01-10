@@ -34,7 +34,7 @@
 			</form>
 		</article>
 	</section>
-	<section class="dashboard-container hidden">
+	<section class="dashboard-container ">
 		<div class="new-trips">
 			<button class="trips" id="newTripButon">
 				<h3 class="title" id="bookANewTrip">BOOK A NEW TRIP</h3>
@@ -55,8 +55,12 @@
 				<h3 class="pending-trip title">PENDING TRIPS</h3>
 			</button>
 		</div>
+		<div class="total-cost">
+			<label for="totalAmountSoFar" class="total-amount-so-far">TOTAL AMOUNT SPENT ON TRIPS THIS YEAR: </label>
+			<span class="total-value">TOTAL</span>
+		</div>
 	</section>
-	<section class="travel-input ">
+	<section class="travel-input hidden">
 		<article class="form">
 			<div class="date-people-location">
 				<form class="date-entry-form" id="dateEntryForm">
@@ -84,7 +88,7 @@
 			<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
 		</form>
 		<article class="cost">
-			<div class="total-cost">
+			<div class="total-cost-single-trip">
 				<h4 class=""></h4>
 			</div>
 		</article>
