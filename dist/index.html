@@ -8,7 +8,9 @@
 	<title>Travel Tracker</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<linkhref="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins:wght@300&family=Raleway:wght@100&display=swap"rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins:wght@300&family=Raleway:wght@100&display=swap"
+		rel="stylesheet">
 </head>
 
 <body>
@@ -25,41 +27,70 @@
 		</section>
 	</nav>
 	<section>
-		<article class="log-in-section" id="logInSection">
+		<article class="log-in-section hidden" id="logInSection">
 			<form class="log-in">
 				<input type="text" placeholder="username" class="user-name" required>
 				<input type="password" placeholder="password" class="pass-word" required>
 			</form>
 		</article>
 	</section>
-	<section class="dashboard-container hidden">
-		<article class="book-a-new-trip">
+	<section class="dashboard-container ">
+		<div class="new-trips">
 			<button class="trips" id="newTripButon">
-				<h3 class="book-a-new-trip title" id="bookANewTrip">BOOK A NEW TRIP</h3>
+				<h3 class="title" id="bookANewTrip">BOOK A NEW TRIP</h3>
 			</button>
+		</div>
+		<div class="upcoming-trips">
 			<button class="trips" id="upcomingTripButon">
-				<h3 class="upcoming-trip title">UPCOMING TRIPS</h3>
+				<h3 class="title">UPCOMING TRIPS</h3>
 			</button>
+		</div>
+		<div class="past-trips">
 			<button class="trips" id="pastTripsButton">
-				<h3 class="past-trip title">PAST TRIPS</h3>
+				<h3 class="title">PAST TRIPS</h3>
 			</button>
+		</div>
+		<div class="pending-trips">
 			<button class="trips" id="pendingTripsButton">
 				<h3 class="pending-trip title">PENDING TRIPS</h3>
 			</button>
-		</article>
+		</div>
+		<div class="total-cost">
+			<label for="totalAmountSoFar" class="total-amount-so-far">TOTAL AMOUNT SPENT ON TRIPS THIS YEAR: </label>
+			<span class="total-value">TOTAL</span>
+		</div>
 	</section>
 	<section class="travel-input hidden">
-		<article class="data-entry">
-			<form class="data-entry-form" id="dataEntryForm" aria-expanded="false">
-				<label for="startCalendarInput" class="start_calendar">Select a Date</label>
-				<input type="date" id="startDateCalendar" name="start_date" max="" required>
-				<label for="endCalendarInput" class="end_calendar">Select a Date</label>
-				<input type="date" id="endDateCalendar" name="end_date" max="" required>
-				<label for="number_of_people_input" class="people-input-labels">Number of people on the trip</label>
-				<input type="number" name="number_of_people" class="user-input-fields" id="userStepInput" min="0"
-					placeholder="1" required>
-				<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
-			</form>
+		<article class="form">
+			<div class="date-people-location">
+				<form class="date-entry-form" id="dateEntryForm">
+					<!-- <label for="startCalendarInput" class="start_calendar">Select a Date</label> -->
+					<input type="date" id="startDateCalendar" name="start_date" max="" required>
+					<!-- <label for="endCalendarInput" class="end_calendar">Select a Date</label> -->
+					<input type="date" id="endDateCalendar" name="end_date" max="" required>
+					<!-- <label for="number_of_people_input" class="people-input-labels">Number of people on the trip</label> -->
+					<input type="number" name="number_of_people" class="number-of-people" id="nuberOfPeople" min="1"
+						placeholder="1" required>
+				</form>
+				<form class="list-of-destinations-form" id="listOfDestinationForm">
+					<div class="dropdown">
+						<button class="dropbutton" id="dropdown-button" aria-controls="dropdown-content">List Of
+							Destinations</button>
+						<menu class="data-dropdown" id="dropdown-content" aria-expanded="false">
+							<button class="select-place drop-option" id="place-selection"
+								aria-controls="destinationEntryForm">location</button>
+						</menu>
+					</div>
+				</form>
+			</div>
+		</article>
+		<form class="submit-button">
+			<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
+		</form>
+		<article class="cost">
+			<div class="total-cost-single-trip">
+				<h4 class=""></h4>
+			</div>
 		</article>
 	</section>
 

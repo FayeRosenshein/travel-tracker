@@ -1,6 +1,7 @@
 body {
-	
+	background-color: rgba(203, 92, 0, 1);
 }
+
 .welcome-banner {
 	width: 40vw;
 	display: flex;
@@ -8,14 +9,121 @@ body {
 	justify-content: space-around;
 }
 
+.dashboard-container {
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.new-trips,
+.upcoming-trips,
+.past-trips,
+.pending-trips {
+	height: 15vh;
+	width: 85vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.new-trips {
+	background-image: url('/dist/assets/littleBus3.png');
+}
+
+.upcoming-trips {
+	background-image: url('/dist/assets/littleBus2\ 2.png');
+}
+
+.past-trips {
+	background-image: url('/dist/assets/littleBus4\ 2.png');
+}
+
+.pending-trips {
+	background-image: url('/dist/assets/littleBus5.png');
+}
+
+
 .trips,
-.log-in {
+.log-in, 
+.total-cost {
+	background-color: #E6E6E6;
+	height: 10vh;
+	width: 60vw;
+	padding: 1px 6px;
+	border-width: 2px;
+	border-radius: 10px;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
 }
- 
+
+.total-cost {
+	width: 75vw;
+	border: 1px solid black
+}
+
+.travel-input {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50vh;
+	width: 85vw;
+	background-image: url('/dist/assets/littleBus7.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.date-people-location {
+	width: 70vw;
+	height: 45vh;
+	background-color: #E6E6E6;
+	display: flex;
+	justify-content: space-between;
+}
+
+.date-entry-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.list-of-destinations-form {
+	padding: 60px 50px 0px 0px;
+}
+
+.submit-button {
+	padding-right: 50px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.cost {
+	height: 30vh;
+	width: 85vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid black;
+}
+
+.total-cost-single-trip {
+	height: 25vh;
+	width: 65vw;
+	background-color: #E6E6E6;
+}
+
 .hidden {
 	display: none;
 }
