@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<nav class="welcome-nav" id="welcomeBanner">
+	<nav class="welcome-nav hidden" id="welcomeBanner">
 		<section class="welcome-banner">
 			<img src="./assets/bus-icon.png" width="50vw">
 			<h1 class="app-name">Travel Tracker</h1>
@@ -27,10 +27,11 @@
 		</section>
 	</nav>
 	<section>
-		<article class="log-in-section hidden" id="logInSection">
-			<form class="log-in">
-				<input type="text" placeholder="username" class="user-name" required>
-				<input type="password" placeholder="password" class="pass-word" required>
+		<article class="log-in-section" id="logInSection">
+			<form class="log-in-form" id="logInForm">
+				<input type="text" placeholder="username" class="log-in-element" id="username" required>
+				<input type="password" placeholder="password" class="log-in-element" id="password" required>
+				<input type="submit" class="log-in-element" id="logInButton">
 			</form>
 		</article>
 	</section>
@@ -60,7 +61,7 @@
 			<span class="total-value">TOTAL</span>
 		</div>
 	</section>
-	<section class="upcoming-trips-section">
+	<section class="upcoming-trips-section hidden">
 		<article class="upcoming-trip upcoming-trip-top">
 			<div class="title-container">
 				<h3 class="title">UPCOMING TRIPS</h3>

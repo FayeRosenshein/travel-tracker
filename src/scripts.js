@@ -8,14 +8,38 @@ import './css/styles.css';
 import './images/turing-logo.png'
 
 
-console.log('This is the JavaScript entry file - your code begins here.');
+const usernameField = document.getElementById('username')
+const passwordField = document.getElementById('password')
+const logInForm = document.getElementById('logInForm')
 
+logInForm.addEventListener('submit', (event) => {
+	login(event)
+})
 
-// id: 167,
-// userID: 15,
-// destinationID: 42,
-// travelers: 3,
-// date: "2019/08/10",
-// duration: 16,
-// status: "approved",
-// suggestedActivities: [ ]
+let currentUserId
+
+function login(event) {
+	event.preventDefault()
+	const username = usernameField.value 
+	const password = passwordField.value
+	if (password !== 'travel') {
+		console.log('Incorrect password')
+		return
+	}
+	currentUserId = usernameToUserId(username)
+	console.log(currentUserId)
+}
+
+function usernameToUserId(username) {
+	if (!username.startsWith('traveler')) {
+		console.log(`${username} doesn't start with traveler`)
+		return -1
+	}
+	const usernameId = username.replace('traveler', '')
+	const id = parseInt(usernameId)
+	if (isNaN(id)) {
+		console.log('traveler id is not a number')
+		return -1
+	}
+	return id
+}
