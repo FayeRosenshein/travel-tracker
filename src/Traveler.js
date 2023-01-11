@@ -4,6 +4,7 @@ class Traveler {
 		this.name = travelerInfo.name
 		this.type = travelerInfo.type
 		this.trips = []
+		this.destinations = []
 	}
 }
 

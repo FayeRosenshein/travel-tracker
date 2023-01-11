@@ -18,7 +18,7 @@ body {
 	background-size: cover;
 }
 
-.dashboard-container {
+.dashboard-section {
 	display: flex;
 	flex-direction: column;
 	height: 80vh;
@@ -85,7 +85,7 @@ body {
 	align-items: center;
 }
 
-.form {
+.trip-form {
 	display: flex;
 	justify-content: center;
 	align-items: center;

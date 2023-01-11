@@ -7,10 +7,12 @@ import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-
+const welcomeBanner = document.getElementById('welcomeBanner')
 const usernameField = document.getElementById('username')
 const passwordField = document.getElementById('password')
+const logInSection = document.getElementById('logInSection')
 const logInForm = document.getElementById('logInForm')
+const dashboardSection = document.getElementById('dashboardSection')
 
 logInForm.addEventListener('submit', (event) => {
 	login(event)
@@ -27,6 +29,7 @@ function login(event) {
 		return
 	}
 	currentUserId = usernameToUserId(username)
+	showDashboard()
 	console.log(currentUserId)
 }
 
@@ -42,4 +45,10 @@ function usernameToUserId(username) {
 		return -1
 	}
 	return id
+}
+
+function showDashboard() {
+	welcomeBanner.classList.remove('hidden')
+	dashboardSection.classList.remove('hidden')
+	logInSection.classList.add('hidden')
 }

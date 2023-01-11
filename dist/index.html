@@ -27,7 +27,7 @@
 		</section>
 	</nav>
 	<section>
-		<article class="log-in-section" id="logInSection">
+		<article class="log-in-section hidden" id="logInSection">
 			<form class="log-in-form" id="logInForm">
 				<input type="text" placeholder="username" class="log-in-element" id="username" required>
 				<input type="password" placeholder="password" class="log-in-element" id="password" required>
@@ -35,7 +35,7 @@
 			</form>
 		</article>
 	</section>
-	<section class="dashboard-container hidden">
+	<section class="dashboard-section hidden" id="dashboardSection">
 		<div class="new-trips">
 			<button class="trips" id="newTripButon">
 				<h3 class="title" id="bookANewTrip">BOOK A NEW TRIP</h3>
@@ -61,7 +61,7 @@
 			<span class="total-value">TOTAL</span>
 		</div>
 	</section>
-	<section class="upcoming-trips-section hidden">
+	<section class="upcoming-trips-section">
 		<article class="upcoming-trip upcoming-trip-top">
 			<div class="title-container">
 				<h3 class="title">UPCOMING TRIPS</h3>
@@ -76,7 +76,7 @@
 	<section class="past-trips-section"></section>
 	<section class="pendingt-trips-section"></section>
 	<section class="travel-input hidden">
-		<article class="form">
+		<article class="trip-form">
 			<div class="date-people-location">
 				<form class="date-entry-form" id="dateEntryForm">
 					<!-- <label for="startCalendarInput" class="start_calendar">Select a Date</label> -->
