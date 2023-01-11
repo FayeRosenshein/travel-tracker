@@ -10,3 +10,5 @@ class Trip {
 		this.suggestedActivities = []
 	}
 }
+
+export default Trip
