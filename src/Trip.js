@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 class Trip {
 	constructor(tripInfo) {
 		this.id = tripInfo.id
@@ -6,7 +7,7 @@ class Trip {
 		this.travelers = tripInfo.travelers
 		this.date = tripInfo.date
 		this.duration = tripInfo.duration
-		this.status 
+		this.status = tripInfo.status
 		this.suggestedActivities = []
 	}
 }
