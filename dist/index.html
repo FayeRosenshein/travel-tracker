@@ -14,19 +14,26 @@
 </head>
 
 <body>
-	<nav id="welcomeBanner">
+	<nav class="welcome-banner-dashboard-section hidden" id="welcomeBannerDashboard">
 		<section class="welcome-banner">
-			<img src="./assets/bus-icon.png" width="50vw">
+			<img src="./assets/bus-icon.png" width="50vw" alt="bus icon">
+			<h1 class="app-name">Travel Tracker</h1>
+		</section>
+	</nav>
+	<nav class="welcome-banner-section hidden" id="welcomeBanner">
+		<section class="welcome-banner">
+			<img src="./assets/bus-icon.png" width="50vw" alt="bus icon">
 			<h1 class="app-name">Travel Tracker</h1>
 		</section>
 		<section>
 			<div class="welcome-banner-right ">
-				<button class="dashboard-button hidden" id="dashboardButton">DASHBOARD</button>
+				<button type="onClick" class="dashboard-button hidden" id="dashboardButton" alt="dashboard button"
+				aria-controls="dashboard">DASHBOARD</button>
 			</div>
 		</section>
 	</nav>
-	<section>
-		<article class="log-in-section hidden" id="logInSection">
+	<section class="log-in-section hidden">
+		<article id="logInSection">
 			<form class="log-in-form" id="logInForm">
 				<input type="text" placeholder="username" class="log-in-element" id="username" required>
 				<input type="password" placeholder="password" class="log-in-element" id="password" required>
@@ -34,7 +41,7 @@
 			</form>
 		</article>
 	</section>
-	<section class="dashboard-section hidden" id="dashboardSection">
+	<section class="dashboard-section" id="dashboardSection">
 		<div class="new-trips">
 			<button class="trips-button" id="newTripButon">
 				<h3 class="title" id="bookANewTrip">BOOK A NEW TRIP</h3>
@@ -61,12 +68,12 @@
 		</div>
 	</section>
 	<section class="upcoming-trips-section hidden" id="upcomingTripSection">
-		<article class="upcoming-trip upcoming-trip-top">
+		<article class="upcoming-trips">
 			<div class="title-container">
 				<h3 class="title">UPCOMING TRIPS</h3>
 			</div>
 		</article>
-		<div class="upcoming-trip" id="upcomingTripInfo">
+		<div id="upcomingTripInfo">
 			<article class="trip-info">
 				<p class="destination">DESTINATION</p>
 				<P class="date">DATE</P>
@@ -75,12 +82,12 @@
 		</div>
 	</section>
 	<section class="past-trips-section hidden" id="pastTripSection">
-		<article class="past-trip past-trip-top">
+		<article class="past-trips">
 			<div class="title-container">
 				<h3 class="title">PAST TRIPS</h3>
 			</div>
 		</article>
-		<div class="past-trip" id="pastTripInfo">
+		<div class="past-trip-info" id="pastTripInfo">
 			<article class="trip-info">
 				<p class="destination">DESTINATION</p>
 				<P class="date">DATE</P>
@@ -88,13 +95,13 @@
 			</article>
 		</div>
 	</section>
-	<section class="pendingt-trips-section hidden" id="pendingTripSection">
-		<article class="pending-trip pending-trip-top">
+	<section class="pending-trips-section hidden" id="pendingTripSection">
+		<article class="pending-trips">
 			<div class="title-container">
 				<h3 class="title">PENDING TRIPS</h3>
 			</div>
 		</article>
-		<div class="pending-trip" id="pendingTripInfo">
+		<div id="pendingTripInfo">
 			<article class="trip-info">
 				<p class="destination">DESTINATION</p>
 				<P class="date">DATE</P>
@@ -102,18 +109,23 @@
 			</article>
 		</div>
 	</section>
-	<section class="travel-input-sectionxx " id="travelInputSection">
-		<article class="trip-formxx">
-			<div class="date-people-locationxx">
-				<form class="date-entry-formxx" id="dataEntryForm">
+	<section class="travel-input-section hidden" id="travelInputSection">
+		<article class="new-trips">
+			<div class="title-container">
+				<h3 class="title">BOOK A NEW TRIP</h3>
+			</div>
+		</article>
+		<article>
+			<div>
+				<form id="dataEntryForm">
 					<!-- <label for="startCalendarInput" class="start_calendar">Select a Date</label> -->
 					<input type="date" class="input" id="startDateCalendar" name="start_date" max="" required>
 					<label for="duration" class="duration-label">Select a Duration in days</label>
-					<input type="number" class="input" id="duration" name="duration" max="" required>
+					<input type="number" class="input" id="duration" name="duration" max="" placeholder="1" required>
 					<label for=" number_of_people_input" class="people-input-labels">Number of people on the trip</label>
 					<input type="number" name="number_of_people" class="input" id="nuberOfPeople" min="1"
 						placeholder="1" required>
-					<select name="destination_drop_down" class="input" id="destinationDropDown">
+					<select name="destination_drop_down" class="input" id="destinationDropDown" aria-controls="dropdown-content" aria-placeholder="location">
 						<option value="0">please choose a location</option>
 					</select>
 					<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
@@ -123,7 +135,11 @@
 		<article class="cost">
 			<div class="total-cost-single-trip">
 				<label>The Estimated Cost for this trip: </label>
-				<h4 class="estimated-cost" id="estimatedCost"></h4>
+				<p id="estimatedLodgingCostPerDay"></p>
+				<p id="estimatedFlightCostPerPerson"></p>
+				<p id="numberOfPeople"></p>
+				<p id="agentFee"></p>
+				<h3 id="estimatedCost"></h3>
 			</div>
 		</article>
 	</section>

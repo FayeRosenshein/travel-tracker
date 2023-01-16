@@ -15,6 +15,7 @@ let destinationsPromise = fetchDestinationData()
 let tripsPromise = fetchTripData()
 
 const welcomeBanner = document.getElementById('welcomeBanner')
+const welcomeBannerDashboard = document.getElementById('welcomeBannerDashboard')
 const usernameField = document.getElementById('username')
 const passwordField = document.getElementById('password')
 const logInForm = document.getElementById('logInForm')
@@ -34,13 +35,12 @@ const upcomingTripInfo = document.getElementById('upcomingTripInfo')
 const pastTripInfo = document.getElementById('pastTripInfo')
 const pendingTripInfo = document.getElementById('pendingTripInfo')
 const dataEntryForm = document.getElementById('dataEntryForm')
-const dataEntryFormButton = document.getElementById('dataEntryFormButton')
 const allInputs = document.querySelectorAll('.input')
 const destinationDropDown = document.getElementById('destinationDropDown')
 const estimatedLodgingCostPerDay = document.getElementById('estimatedLodgingCostPerDay')
-const duration = document.getElementById('duration')
 const estimatedFlightCostPerPerson = document.getElementById('estimatedFlightCostPerPerson')
 const numberOfPeople = document.getElementById('numberOfPeople')
+const agentFee = document.getElementById('agentFee')
 const estimatedCost = document.getElementById('estimatedCost')
 
 window.addEventListener('load', function () {
@@ -102,16 +102,17 @@ function parseData(values) {
 	repo = new Repository(values[0], values[1], values[2])
 	repo.initialize()
 	currentTraveler = repo.travelers[37]
-	displayBookATrip()
+	showDashboard()
 }
 function showDashboard() {
 	totalValue.innerText = `$${currentTraveler.calculateTotalCost()}`
-	welcomeBanner.classList.remove('hidden')
+	welcomeBannerDashboard.classList.remove('hidden')
 	dashboardSection.classList.remove('hidden')
 	travelInputSection.classList.add('hidden')
 	upcomingTripSection.classList.add('hidden')
 	pastTripSection.classList.add('hidden')
 	pendingTripSection.classList.add('hidden')
+	welcomeBanner.classList.add('hidden')
 	dashboardButton.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
@@ -123,6 +124,7 @@ function showBookATrip() {
 	pastTripSection.classList.add('hidden')
 	upcomingTripSection.classList.add('hidden')
 	pendingTripSection.classList.add('hidden')
+	welcomeBannerDashboard.classList.add('hidden')
 	dashboardSection.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
@@ -134,6 +136,7 @@ function showUpcomingTrips() {
 	pastTripSection.classList.add('hidden')
 	pendingTripSection.classList.add('hidden')
 	travelInputSection.classList.add('hidden')
+	welcomeBannerDashboard.classList.add('hidden')
 	dashboardSection.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
@@ -145,6 +148,7 @@ function showPastTrips() {
 	upcomingTripSection.classList.add('hidden')
 	pendingTripSection.classList.add('hidden')
 	travelInputSection.classList.add('hidden')
+	welcomeBannerDashboard.classList.add('hidden')
 	dashboardSection.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
@@ -156,6 +160,7 @@ function showPendingTrips() {
 	pastTripSection.classList.add('hidden')
 	upcomingTripSection.classList.add('hidden')
 	travelInputSection.classList.add('hidden')
+	welcomeBannerDashboard.classList.add('hidden')
 	dashboardSection.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
@@ -299,8 +304,12 @@ function submitFormData(event) {
 }
 function displayCost(newTrip) {
 	const destination = destinations.find(destination => newTrip.destinationID === destination.id)
-	const total = +((destination.estimatedLodgingCostPerDay * newTrip.duration) + (destination.estimatedFlightCostPerPerson * newTrip.travelers)).toFixed(2)
-	estimatedCost.innerText = total
+	const total = +(destination.estimatedLodgingCostPerDay * newTrip.duration) + (destination.estimatedFlightCostPerPerson * newTrip.travelers)
+	estimatedLodgingCostPerDay.innerText = `Estimated cost of lodging per day for this trip ${destination.estimatedLodgingCostPerDay}`
+	estimatedFlightCostPerPerson.innerText = `Estimated cost of flights for each person ${destination.estimatedFlightCostPerPerson}` 
+	numberOfPeople.innerText = `${newTrip.travelers} person(s) are traveling on this trip`
+	agentFee.innerText = `10%, ${(total*0.1).toFixed(2)}`
+	estimatedCost.innerText = `$${(total*1.1).toFixed(2)}`
 }
 function clearAllInputs() {
 	allInputs.forEach(input => {
