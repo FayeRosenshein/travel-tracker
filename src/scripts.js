@@ -35,6 +35,11 @@ const pastTripInfo = document.getElementById('pastTripInfo')
 const pendingTripInfo = document.getElementById('pendingTripInfo')
 const dataEntryForm = document.getElementById('dataEntryForm')
 const dataEntryFormButton = document.getElementById('dataEntryFormButton')
+const estimatedLodgingCostPerDay = document.getElementById('estimatedLodgingCostPerDay')
+const duration = document.getElementById('duration')
+const estimatedFlightCostPerPerson = document.getElementById('estimatedFlightCostPerPerson')
+const numberOfPeople = document.getElementById('numberOfPeople')
+const totalCost = document.getElementById('totalCost')
 
 window.addEventListener('load', function () {
 	resolvePromises()
@@ -56,6 +61,7 @@ let currentTraveler
 let currentTravelerId
 let destinations
 let trips
+let postData
 
 function login(event) {
 	event.preventDefault()
@@ -209,7 +215,7 @@ let postTrip = (postData) => {
 	})
 		.then(response => {
 			if (!response.ok) {
-				throw new Error("Data failed to post");
+				throw new Error("Data failed to post")
 			} else {
 				return response.json()
 			}
@@ -253,8 +259,8 @@ function submitFormData(event) {
 	const formData = new FormData(dataEntryForm)
 	const values = [...formData.entries()]
 	console.log(values)
-	let postData = {}
-	postData.id = 2004
+	postData = {}
+	postData.id = 2005
 	postData.userID = +currentTraveler.id
 	postData.status = 'pending'
 	postData.suggestedActivities = []
@@ -280,7 +286,28 @@ function submitFormData(event) {
 	// let result = await postTrip(postData)
 	// console.log(results)
 	postTrip(postData)
-
+	repo.initialize()
+	calculateNewTripCost()
+}
+function calculateNewTripCost() {
+	const newTrip = currentTraveler.trips.find(trip => trip.id === postData.id)
+	const reducedTrips = newTrip.reduce((acc, trip) => {
+		//lodging cost
+		acc += trip.destination.estimatedLodgingCostPerDay*trip.duration
+		//flight cost
+		acc += trip.destination.estimatedFlightCostPerPerson*trip.travelers
+		return acc
+	}, 0)
+	const total = +(reducedTrips*1.1).toFixed(2)
+	displayCost(total)
+}
+function displayCost(total) {
+	const newTripDestination = destinations.find(destination => postData.destinationID === destination.id)
+	estimatedLodgingCostPerDay.innerText = newTripDestination.estimatedLodgingCostPerDay
+	duration.innerText = postData.duration
+	estimatedFlightCostPerPerson.innerText = newTripDestination.estimatedFlightCostPerPerson
+	numberOfPeople.innerText = postData.travelers
+	totalCost.innerText = total
 }
 
 	// {id: <number>, userID: <number>, destinationID: <number>, travelers: <number>, date: <string 'YYYY/MM/DD'>, duration: <number>, status: <string 'approved' or 'pending'>, suggestedActivities: <array of strings>}

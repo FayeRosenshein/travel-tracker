@@ -114,8 +114,8 @@
 					<input type="number" name="number_of_people" class="number-of-people" id="nuberOfPeople" min="1"
 						placeholder="1" required>
 					<select name="destination_drop_down" id="destinationDropDown">
-						<option value="0">location1</option>
-						<option value="1">location2</option>
+						<option value="1">location1</option>
+						<option value="2">location2</option>
 					</select>
 					<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
 				</form>
@@ -123,7 +123,11 @@
 		</article>
 		<article class="cost">
 			<div class="total-cost-single-trip">
-				<h4 class=""></h4>
+				<h4 id="estimatedLodgingCostPerDay"></h4>
+				<h4 id="duration"></h4>
+				<h4 id="estimatedFlightCostPerPerson"></h4>
+				<h4 id="numberOfPeople"></h4>
+				<h4 class="total-cost" id="totalCost"></h4>
 			</div>
 		</article>
 	</section>

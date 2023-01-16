@@ -34,7 +34,6 @@ class Traveler {
 		const total = +(reducedTrips*1.1).toFixed(2)
 		return total
 	}
-	calculateNewTrip
 }
 
 export default Traveler
