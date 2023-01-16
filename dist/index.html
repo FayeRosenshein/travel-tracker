@@ -14,16 +14,15 @@
 </head>
 
 <body>
-	<nav class="welcome-nav hidden" id="welcomeBanner">
+	<nav class="welcome-nav " id="welcomeBanner">
 		<section class="welcome-banner">
 			<img src="./assets/bus-icon.png" width="50vw">
 			<h1 class="app-name">Travel Tracker</h1>
 		</section>
 		<section>
-			<p class="welcome-message" id="welcomeMessage"></p>
-		</section>
-		<section>
-			<div class="welcome-banner-right"></div>
+			<div class="welcome-banner-right ">
+				<button class="dashboard-button hidden" id="dashboardButton">DASHBOARD</button>
+			</div>
 		</section>
 	</nav>
 	<section>
@@ -37,71 +36,91 @@
 	</section>
 	<section class="dashboard-section hidden" id="dashboardSection">
 		<div class="new-trips">
-			<button class="trips" id="newTripButon">
+			<button class="trips-button" id="newTripButon">
 				<h3 class="title" id="bookANewTrip">BOOK A NEW TRIP</h3>
 			</button>
 		</div>
 		<div class="upcoming-trips">
-			<button class="trips" id="upcomingTripButon">
+			<button class="trips-button" id="upcomingTripButon">
 				<h3 class="title">UPCOMING TRIPS</h3>
 			</button>
 		</div>
 		<div class="past-trips">
-			<button class="trips" id="pastTripsButton">
+			<button class="trips-button" id="pastTripsButton">
 				<h3 class="title">PAST TRIPS</h3>
 			</button>
 		</div>
 		<div class="pending-trips">
-			<button class="trips" id="pendingTripsButton">
+			<button class="trips-button" id="pendingTripsButton">
 				<h3 class="pending-trip title">PENDING TRIPS</h3>
 			</button>
 		</div>
 		<div class="total-cost">
 			<label for="totalAmountSoFar" class="total-amount-so-far">TOTAL AMOUNT SPENT ON TRIPS THIS YEAR: </label>
-			<span class="total-value">TOTAL</span>
+			<span class="total-value" id="totalValue">TOTAL</span>
 		</div>
 	</section>
-	<section class="upcoming-trips-section">
+	<section class="upcoming-trips-section hidden" id="upcomingTripSection">
 		<article class="upcoming-trip upcoming-trip-top">
 			<div class="title-container">
 				<h3 class="title">UPCOMING TRIPS</h3>
 			</div>
 		</article>
-		<article class="upcoming-trip upcoming-trip-info">
-			<p class="upcoming-trip destination">DESTINATION</p>
-			<P class="upcoming-trip date">DATE</P>
-			<P class="upcoming-trip number">NUMBER OF PEOPLE</P>
-		</article>
+		<div class="upcoming-trip" id="upcomingTripInfo">
+			<article class="trip-info">
+				<p class="destination">DESTINATION</p>
+				<P class="date">DATE</P>
+				<P class="number">NUMBER OF PEOPLE</P>
+			</article>
+		</div>
 	</section>
-	<section class="past-trips-section"></section>
-	<section class="pendingt-trips-section"></section>
-	<section class="travel-input hidden">
-		<article class="trip-form">
-			<div class="date-people-location">
-				<form class="date-entry-form" id="dateEntryForm">
+	<section class="past-trips-section hidden" id="pastTripSection">
+		<article class="past-trip past-trip-top">
+			<div class="title-container">
+				<h3 class="title">PAST TRIPS</h3>
+			</div>
+		</article>
+		<div class="past-trip" id="pastTripInfo">
+			<article class="trip-info">
+				<p class="destination">DESTINATION</p>
+				<P class="date">DATE</P>
+				<P class="number">NUMBER OF PEOPLE</P>
+			</article>
+		</div>
+	</section>
+	<section class="pendingt-trips-section hidden" id="pendingTripSection">
+		<article class="pending-trip pending-trip-top">
+			<div class="title-container">
+				<h3 class="title">PENDING TRIPS</h3>
+			</div>
+		</article>
+		<div class="pending-trip" id="pendingTripInfo">
+			<article class="trip-info">
+				<p class="destination">DESTINATION</p>
+				<P class="date">DATE</P>
+				<P class="number">NUMBER OF PEOPLE</P>
+			</article>
+		</div>
+	</section>
+	<section class="travel-input-sectionxx " id="travelInputSection">
+		<article class="trip-formxx">
+			<div class="date-people-locationxx">
+				<form class="date-entry-formxx" id="dataEntryForm">
 					<!-- <label for="startCalendarInput" class="start_calendar">Select a Date</label> -->
 					<input type="date" id="startDateCalendar" name="start_date" max="" required>
-					<!-- <label for="endCalendarInput" class="end_calendar">Select a Date</label> -->
-					<input type="date" id="endDateCalendar" name="end_date" max="" required>
-					<!-- <label for="number_of_people_input" class="people-input-labels">Number of people on the trip</label> -->
+					<label for="duration" class="duration-label">Select a Duration in days</label>
+					<input type="number" id="duration" name="duration" max="" required>
+					<label for=" number_of_people_input" class="people-input-labels">Number of people on the trip</label>
 					<input type="number" name="number_of_people" class="number-of-people" id="nuberOfPeople" min="1"
 						placeholder="1" required>
-				</form>
-				<form class="list-of-destinations-form" id="listOfDestinationForm">
-					<div class="dropdown">
-						<button class="dropbutton" id="dropdown-button" aria-controls="dropdown-content">List Of
-							Destinations</button>
-						<menu class="data-dropdown" id="dropdown-content" aria-expanded="false">
-							<button class="select-place drop-option" id="place-selection"
-								aria-controls="destinationEntryForm">location</button>
-						</menu>
-					</div>
+					<select name="destination_drop_down" id="destinationDropDown">
+						<option value="0">location1</option>
+						<option value="1">location2</option>
+					</select>
+					<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
 				</form>
 			</div>
 		</article>
-		<form class="submit-button">
-			<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
-		</form>
 		<article class="cost">
 			<div class="total-cost-single-trip">
 				<h4 class=""></h4>

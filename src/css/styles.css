@@ -1,6 +1,7 @@
 body {
-	margin: 0px;;
-	background-color: rgba(203, 92, 0, 1);
+	margin: 0px;
+	;
+	background-color: #8CBACA;
 }
 
 .welcome-banner {
@@ -8,6 +9,12 @@ body {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+}
+
+.welcome-banner-right {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 20px;
 }
 
 .log-in-section {
@@ -30,6 +37,7 @@ body {
 .upcoming-trips,
 .upcoming-trip-top,
 .past-trips,
+.past-trip-top,
 .pending-trips {
 	height: 15vh;
 	width: 85vw;
@@ -49,18 +57,23 @@ body {
 	background-image: url('/dist/assets/littleBus2\ 2.png');
 }
 
-.past-trips {
+.past-trips,
+.past-trip-top {
 	background-image: url('/dist/assets/littleBus4\ 2.png');
 }
 
-.pending-trips {
+.pending-trips,
+.pending-trip-top {
 	background-image: url('/dist/assets/littleBus5.png');
 }
 
-.trips,
-.log-in-form, 
+.trips-button,
+.log-in-form,
 .total-cost,
-.title-container {
+.title-container,
+.destination,
+.date,
+.number {
 	background-color: #E6E6E6;
 	height: 10vh;
 	width: 60vw;
@@ -79,7 +92,7 @@ body {
 	border: 1px solid black
 }
 
-.travel-input {
+.travel-input-section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -97,7 +110,7 @@ body {
 }
 
 .date-people-location,
-.upcoming-trip-info {
+.trip-info {
 	width: 70vw;
 	height: 45vh;
 	background-color: #E6E6E6;
@@ -137,21 +150,30 @@ body {
 	background-color: #E6E6E6;
 }
 
-.upcoming-trip-top {
-	background-image: url('/dist/assets/littleBus2\ 2.png');
+.upcoming-trips-section,
+.past-trips-section,
+.pending-trips-section {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-/* .upcoming-trips {
-	background-image: url('/dist/assets/littleBus2\ 2.png');
+.trip-info {
+	margin-top: 15px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
-.past-trips {
-	background-image: url('/dist/assets/littleBus4\ 2.png');
+.destination,
+.date,
+.number {
+	height: 7vh;
+	width: 40vw;
 }
-
-.pending-trips {
-	background-image: url('/dist/assets/littleBus5.png');
-} */
 
 .hidden {
 	display: none;
