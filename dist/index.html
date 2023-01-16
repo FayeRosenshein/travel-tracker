@@ -107,15 +107,14 @@
 			<div class="date-people-locationxx">
 				<form class="date-entry-formxx" id="dataEntryForm">
 					<!-- <label for="startCalendarInput" class="start_calendar">Select a Date</label> -->
-					<input type="date" id="startDateCalendar" name="start_date" max="" required>
+					<input type="date" class="input" id="startDateCalendar" name="start_date" max="" required>
 					<label for="duration" class="duration-label">Select a Duration in days</label>
-					<input type="number" id="duration" name="duration" max="" required>
+					<input type="number" class="input" id="duration" name="duration" max="" required>
 					<label for=" number_of_people_input" class="people-input-labels">Number of people on the trip</label>
-					<input type="number" name="number_of_people" class="number-of-people" id="nuberOfPeople" min="1"
+					<input type="number" name="number_of_people" class="input" id="nuberOfPeople" min="1"
 						placeholder="1" required>
-					<select name="destination_drop_down" id="destinationDropDown">
-						<option value="1">location1</option>
-						<option value="2">location2</option>
+					<select name="destination_drop_down" class="input" id="destinationDropDown">
+						<option value="0">please choose a location</option>
 					</select>
 					<input type="submit" class="data-entry-form-button" id="dataEntryFormButton">
 				</form>
@@ -123,11 +122,8 @@
 		</article>
 		<article class="cost">
 			<div class="total-cost-single-trip">
-				<h4 id="estimatedLodgingCostPerDay"></h4>
-				<h4 id="duration"></h4>
-				<h4 id="estimatedFlightCostPerPerson"></h4>
-				<h4 id="numberOfPeople"></h4>
-				<h4 class="total-cost" id="totalCost"></h4>
+				<label>The Estimated Cost for this trip: </label>
+				<h4 class="estimated-cost" id="estimatedCost"></h4>
 			</div>
 		</article>
 	</section>

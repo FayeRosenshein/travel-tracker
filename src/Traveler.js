@@ -17,7 +17,7 @@ class Traveler {
 		const thisYearsTrips = this.trips.filter(trip => {
 			//This is hard coded right now, but should change when finally deployed
 			//should be today.year()
-			return dayjs(trip.date).year() === 2020 && trip.status === 'approved'
+			return dayjs(trip.date).year() === today && trip.status === 'approved'
 		})
 		//perDayCost
 		//duration

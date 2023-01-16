@@ -35,11 +35,13 @@ const pastTripInfo = document.getElementById('pastTripInfo')
 const pendingTripInfo = document.getElementById('pendingTripInfo')
 const dataEntryForm = document.getElementById('dataEntryForm')
 const dataEntryFormButton = document.getElementById('dataEntryFormButton')
+const allInputs = document.querySelectorAll('.input')
+const destinationDropDown = document.getElementById('destinationDropDown')
 const estimatedLodgingCostPerDay = document.getElementById('estimatedLodgingCostPerDay')
 const duration = document.getElementById('duration')
 const estimatedFlightCostPerPerson = document.getElementById('estimatedFlightCostPerPerson')
 const numberOfPeople = document.getElementById('numberOfPeople')
-const totalCost = document.getElementById('totalCost')
+const estimatedCost = document.getElementById('estimatedCost')
 
 window.addEventListener('load', function () {
 	resolvePromises()
@@ -54,6 +56,7 @@ pastTripsButton.addEventListener('click', showPastTrips)
 pendingTripsButton.addEventListener('click', showPendingTrips)
 dataEntryForm.addEventListener('submit', (event) => {
 	submitFormData(event)
+	clearAllInputs()
 })
 
 let repo
@@ -99,6 +102,7 @@ function parseData(values) {
 	repo = new Repository(values[0], values[1], values[2])
 	repo.initialize()
 	currentTraveler = repo.travelers[37]
+	displayBookATrip()
 }
 function showDashboard() {
 	totalValue.innerText = `$${currentTraveler.calculateTotalCost()}`
@@ -112,6 +116,7 @@ function showDashboard() {
 	logInSection.classList.add('hidden')
 }
 function showBookATrip() {
+	displayBookATrip()
 	welcomeBanner.classList.remove('hidden')
 	dashboardButton.classList.remove('hidden')
 	travelInputSection.classList.remove('hidden')
@@ -223,7 +228,10 @@ let postTrip = (postData) => {
 		.then(data => console.log('DATA', data))
 		.catch(error => console.log(error.message))
 }
-
+function displayBookATrip() {
+	destinationDropDown.innerHTML = '<option value="1">please choose a location</option>'
+	repo.destinations.forEach(destination => destinationDropDown.innerHTML += `<option value="${destination.id}" >${destination.name}</option>`)
+}
 function displayUpcomingTrips() {
 	console.log(currentTraveler.trips)
 	const upcomingTrips = currentTraveler.trips.filter(trip => dayjs(trip.date) >= dayjs(Date.now()) && trip.status === 'approved')
@@ -286,28 +294,18 @@ function submitFormData(event) {
 	// let result = await postTrip(postData)
 	// console.log(results)
 	postTrip(postData)
-	repo.initialize()
-	calculateNewTripCost()
+	// repo.initialize()
+	displayCost(postData)
 }
-function calculateNewTripCost() {
-	const newTrip = currentTraveler.trips.find(trip => trip.id === postData.id)
-	const reducedTrips = newTrip.reduce((acc, trip) => {
-		//lodging cost
-		acc += trip.destination.estimatedLodgingCostPerDay*trip.duration
-		//flight cost
-		acc += trip.destination.estimatedFlightCostPerPerson*trip.travelers
-		return acc
-	}, 0)
-	const total = +(reducedTrips*1.1).toFixed(2)
-	displayCost(total)
+function displayCost(newTrip) {
+	const destination = destinations.find(destination => newTrip.destinationID === destination.id)
+	const total = +((destination.estimatedLodgingCostPerDay * newTrip.duration) + (destination.estimatedFlightCostPerPerson * newTrip.travelers)).toFixed(2)
+	estimatedCost.innerText = total
 }
-function displayCost(total) {
-	const newTripDestination = destinations.find(destination => postData.destinationID === destination.id)
-	estimatedLodgingCostPerDay.innerText = newTripDestination.estimatedLodgingCostPerDay
-	duration.innerText = postData.duration
-	estimatedFlightCostPerPerson.innerText = newTripDestination.estimatedFlightCostPerPerson
-	numberOfPeople.innerText = postData.travelers
-	totalCost.innerText = total
+function clearAllInputs() {
+	allInputs.forEach(input => {
+    input.value = '';
+  });
 }
 
 	// {id: <number>, userID: <number>, destinationID: <number>, travelers: <number>, date: <string 'YYYY/MM/DD'>, duration: <number>, status: <string 'approved' or 'pending'>, suggestedActivities: <array of strings>}
