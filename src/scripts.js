@@ -200,24 +200,24 @@ function fetchTripData() {
 			console.log('Something went wrong: ', response);
 		});
 }
-function postTrip(postData) {
-	let url = 'http://localhost:3001/api/v1/trips'
-
-	let promise = fetch(url, {
+let postTrip = (postData) => {
+	console.log(postData)
+	fetch('http://localhost:3001/api/v1/trips', {
 		method: 'POST',
 		body: JSON.stringify(postData),
 		headers: { 'Content-Type': 'application/json' }
 	})
 		.then(response => {
 			if (!response.ok) {
-				console.log(response.json())
 				throw new Error("Data failed to post");
+			} else {
+				return response.json()
 			}
-			return response.json()
 		})
-
-	return promise
+		.then(data => console.log('DATA', data))
+		.catch(error => console.log(error.message))
 }
+
 function displayUpcomingTrips() {
 	console.log(currentTraveler.trips)
 	const upcomingTrips = currentTraveler.trips.filter(trip => dayjs(trip.date) >= dayjs(Date.now()) && trip.status === 'approved')
@@ -263,7 +263,7 @@ function submitFormData(event) {
 		let itemValue = value[1]
 		switch (itemName) {
 			case 'start_date':
-				postData.date = itemValue.replaceAll('-','/')
+				postData.date = itemValue.replaceAll('-', '/')
 				break
 			case 'duration':
 				postData.duration = +itemValue
@@ -280,7 +280,7 @@ function submitFormData(event) {
 	// let result = await postTrip(postData)
 	// console.log(results)
 	postTrip(postData)
-	.then(data => {console.log(data)})
+
 }
 
 	// {id: <number>, userID: <number>, destinationID: <number>, travelers: <number>, date: <string 'YYYY/MM/DD'>, duration: <number>, status: <string 'approved' or 'pending'>, suggestedActivities: <array of strings>}
