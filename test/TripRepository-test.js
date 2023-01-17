@@ -1,5 +1,4 @@
 import chai from 'chai';
-import Trip from '../src/Trip'
 import Traveler from '../src/Traveler'
 import travelerData from './Traveler-test-data';
 import Repository from '../src/Repository'
@@ -88,5 +87,8 @@ describe('TripRepository-test', function () {
 			image: 'https://images.unsplash.com/photo-1558029697-a7ed1a4b94c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
 			alt: 'boats at a dock during the day time'
 		})
+	})
+	it('should find the traveler by the ID given', function () {
+		expect(tripRepo.findTravelerById(30)).to.deep.equal(tripRepo.travelers[2])
 	})
 })

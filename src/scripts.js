@@ -1,13 +1,5 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import dayjs from 'dayjs';
 import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-
 import Repository from './Repository';
 import Trip from './Trip';
 
@@ -240,7 +232,7 @@ function fetchTripData() {
 }
 let postTrip = (postData) => {
 	console.log(postData)
-	fetch('http://localhost:3001/api/v1/trips', {
+	return fetch('http://localhost:3001/api/v1/trips', {
 		method: 'POST',
 		body: JSON.stringify(postData),
 		headers: { 'Content-Type': 'application/json' }
@@ -255,11 +247,11 @@ let postTrip = (postData) => {
 		})
 		.then(data => {
 			console.log(data)
-			let newTrip = new Trip(data)
+			let newTrip = new Trip(data.newTrip)
+			newTrip.destination = repo.findDestination(newTrip.destinationID)
 			console.log('newTrip', data.newTrip)
 			return newTrip
 		})
-		// .then(data => console.log('DATA', data))
 		.catch(error => console.log(error.message))
 }
 function displayBookATrip() {
@@ -283,7 +275,7 @@ function displayPastTrips() {
 	displayTrips(pastTripInfo, pastTrips)
 }
 function displayPendingTrips() {
-	const pendingTrips = currentTraveler.trips.filter(trip => trip.status !== 'approved')
+	const pendingTrips = repo.findTravelerById(currentTraveler.id).trips.filter(trip => trip.status !== 'approved')
 	displayTrips(pendingTripInfo, pendingTrips)
 }
 async function submitFormData(event) {
@@ -318,11 +310,9 @@ async function submitFormData(event) {
 	// let result = await postTrip(postData)
 	// console.log(results)
 	let postedTrip = await postTrip(postData)
-	resolvePromises()
-	currentTraveler = repo.findTravelerById(currentTraveler.id)
+	repo.trips.push(postedTrip)
+	currentTraveler.trips.push(postedTrip)
 	console.log(postedTrip)
-	// repo.trips.push(postedTrip)
-	// currentTraveler.trips.push(postedTrip)
 	// console.log(postedTrip)
 	displayCost(postData)
 }
