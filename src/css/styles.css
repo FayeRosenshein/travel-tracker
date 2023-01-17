@@ -1,6 +1,10 @@
 body {
-	margin: 0px;;
-	background-color: rgba(203, 92, 0, 1);
+	margin: 0px;
+	background-color: #CB5C00;
+}
+
+.welcome-banner-section {
+	background-color: #8CBACA;
 }
 
 .welcome-banner {
@@ -10,15 +14,30 @@ body {
 	justify-content: space-around;
 }
 
+.welcome-banner-right {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 20px;
+}
+
+.dashboard-button {
+	width: 30vw;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	margin-right: 20px;
+}
+
 .log-in-section {
 	margin: 0px;
+	padding: 100px;
 	height: 100vh;
 	background-image: url('/dist/assets/homeBus.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
-.dashboard-container {
+.dashboard-section {
 	display: flex;
 	flex-direction: column;
 	height: 80vh;
@@ -28,7 +47,6 @@ body {
 
 .new-trips,
 .upcoming-trips,
-.upcoming-trip-top,
 .past-trips,
 .pending-trips {
 	height: 15vh;
@@ -41,11 +59,11 @@ body {
 }
 
 .new-trips {
+	margin: 10px;
 	background-image: url('/dist/assets/littleBus3.png');
 }
 
-.upcoming-trips,
-.upcoming-trip-top {
+.upcoming-trips {
 	background-image: url('/dist/assets/littleBus2\ 2.png');
 }
 
@@ -57,11 +75,14 @@ body {
 	background-image: url('/dist/assets/littleBus5.png');
 }
 
-.trips,
-.log-in-form, 
+.trips-button,
+.log-in-form,
 .total-cost,
-.title-container {
-	background-color: #E6E6E6;
+.title-container,
+.destination,
+.date,
+.number {
+	background-color: rgba(230, 230, 230, .7);
 	height: 10vh;
 	width: 60vw;
 	padding: 1px 6px;
@@ -79,37 +100,16 @@ body {
 	border: 1px solid black
 }
 
-.travel-input {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.total-value {
+	color: #1E44B6;
 }
 
-.form {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 50vh;
-	width: 85vw;
-	background-image: url('/dist/assets/littleBus7.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-.date-people-location,
-.upcoming-trip-info {
+.trip-info {
 	width: 70vw;
-	height: 45vh;
-	background-color: #E6E6E6;
+	height: 35vh;
+	background-color: rgba(230, 230, 230, .7);
 	display: flex;
 	justify-content: space-between;
-}
-
-.date-entry-form {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
 }
 
 .list-of-destinations-form {
@@ -122,37 +122,88 @@ body {
 	justify-content: flex-end;
 }
 
-.cost {
-	height: 30vh;
-	width: 85vw;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 2px solid black;
-}
-
 .total-cost-single-trip {
-	height: 25vh;
-	width: 65vw;
+	margin: 10px;
+	height: 40vh;
+	width: 85vw;
 	background-color: #E6E6E6;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 }
 
-.upcoming-trip-top {
-	background-image: url('/dist/assets/littleBus2\ 2.png');
+.travel-input-section,
+.upcoming-trips-section,
+.past-trips-section,
+.pending-trips-section {
+	background-color: #8CBACA;
+	height: 200vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-/* .upcoming-trips {
-	background-image: url('/dist/assets/littleBus2\ 2.png');
+.data-entry-form {
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
-.past-trips {
-	background-image: url('/dist/assets/littleBus4\ 2.png');
+.trip-info {
+	margin-top: 15px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
-.pending-trips {
-	background-image: url('/dist/assets/littleBus5.png');
-} */
+.destination,
+.date,
+.number {
+	background-color: rgba(230, 230, 230, 1);
+	height: 5vh;
+	width: 40vw;
+}
 
 .hidden {
 	display: none;
+}
+
+@media (min-width: 740px) {
+	.new-trips {
+		margin: 15px;
+		background-image: url('/dist/assets/littleBus3\ 2.png');
+	}
+
+	.upcoming-trips {
+		background-image: url('/dist/assets/littleBus2Desktop.png');
+	}
+
+	.past-trips {
+		background-image: url('/dist/assets/littleBus4Desktop.png');
+	}
+
+	.pending-trips {
+		background-image: url('/dist/assets/littleBus5Desktop.png');
+	}
+
+	.past-trip-info {
+		display: grid;
+		gap: 50px 50px;
+		grid-template-columns: auto auto;
+		padding: 10px;
+	}
+
+	.trip-info {
+		width: 40vw;
+		padding: 20px;
+	}
+
+	.destination,
+	.date,
+	.number {
+		width: 30vw;
+	}
 }
