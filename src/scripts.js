@@ -80,7 +80,6 @@ function login(event) {
 	}
 	currentTraveler = selectedTraveler
 	showDashboard()
-	console.log(currentTravelerId)
 }
 function usernameToUserId(username) {
 	if (!username.startsWith('traveler')) {
@@ -105,12 +104,11 @@ function removeErrorMessage(state) {
 	}
 }
 function resolvePromises() {
-	travelersPromise = fetchData()
-	destinationsPromise = fetchDestinationData()
-	tripsPromise = fetchTripData()
+	travelersPromise = fetchData('travelers')
+	destinationsPromise = fetchData('destinations')
+	tripsPromise = fetchData('trips')
 	Promise.all([travelersPromise, tripsPromise, destinationsPromise])
 		.then((values) => {
-			console.log(values)
 			parseData(values)
 		})
 }
@@ -178,8 +176,8 @@ function showPendingTrips() {
 	dashboardSection.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
-function fetchData() {
-	const userURL = `http://localhost:3001/api/v1/travelers`;
+function fetchData(type) {
+	const userURL = `http://localhost:3001/api/v1/${type}`;
 	return fetch(userURL)
 		.then((response) => {
 			if (response.ok) {
@@ -188,50 +186,13 @@ function fetchData() {
 			throw Promise.reject(response)
 		})
 		.then((data) => {
-			console.log(data)
-			return data.travelers
+			return data[type]
 		})
 		.catch((response) => {
 			console.log('Something went wrong: ', response);
-		});
-}
-function fetchDestinationData() {
-	const URL = `http://localhost:3001/api/v1/destinations`;
-	return fetch(URL)
-		.then((response) => {
-			if (response.ok) {
-				return response.json()
-			}
-			throw Promise.reject(response)
 		})
-		.then((data) => {
-			destinations = data.destinations
-			console.log(destinations)
-			return destinations
-		})
-		.catch((response) => {
-			console.log('Something went wrong: ', response);
-		});
-}
-function fetchTripData() {
-	const URL = `http://localhost:3001/api/v1/trips`;
-	return fetch(URL)
-		.then((response) => {
-			if (response.ok) {
-				return response.json()
-			}
-			throw Promise.reject(response)
-		})
-		.then((data) => {
-			trips = data.trips
-			return trips
-		})
-		.catch((response) => {
-			console.log('Something went wrong: ', response);
-		});
 }
 let postTrip = (postData) => {
-	console.log(postData)
 	return fetch('http://localhost:3001/api/v1/trips', {
 		method: 'POST',
 		body: JSON.stringify(postData),
@@ -246,10 +207,8 @@ let postTrip = (postData) => {
 			}
 		})
 		.then(data => {
-			console.log(data)
 			let newTrip = new Trip(data.newTrip)
 			newTrip.destination = repo.findDestination(newTrip.destinationID)
-			console.log('newTrip', data.newTrip)
 			return newTrip
 		})
 		.catch(error => console.log(error.message))
@@ -282,7 +241,6 @@ async function submitFormData(event) {
 	event.preventDefault()
 	const formData = new FormData(dataEntryForm)
 	const values = [...formData.entries()]
-	console.log(values)
 	postData = {}
 	postData.id = +(trips.length + 1)
 	postData.userID = +currentTraveler.id
@@ -306,14 +264,9 @@ async function submitFormData(event) {
 				break
 		}
 	})
-	console.log(postData)
-	// let result = await postTrip(postData)
-	// console.log(results)
 	let postedTrip = await postTrip(postData)
 	repo.trips.push(postedTrip)
 	currentTraveler.trips.push(postedTrip)
-	console.log(postedTrip)
-	// console.log(postedTrip)
 	displayCost(postData)
 }
 function displayCost(newTrip) {
@@ -327,15 +280,6 @@ function displayCost(newTrip) {
 }
 function clearAllInputs() {
 	allInputs.forEach(input => {
-		input.value = '';
-	});
+		input.value = ''
+	})
 }
-function clearEstimatedCost() {
-	estimatedLodgingCostPerDay.innerText = ''
-	estimatedFlightCostPerPerson.innerText = ''
-	numberOfPeople.innerText = ''
-	agentFee.innerText = ''
-	estimatedCost.innerText = ''
-}
-
-	// {id: <number>, userID: <number>, destinationID: <number>, travelers: <number>, date: <string 'YYYY/MM/DD'>, duration: <number>, status: <string 'approved' or 'pending'>, suggestedActivities: <array of strings>}

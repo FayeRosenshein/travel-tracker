@@ -202,7 +202,9 @@ body {
 		background-image: url('/dist/assets/littleBus5Desktop.png');
 	}
 
-	.past-trip-info {
+	.upcoming-trip-info,
+	.past-trip-info,
+	.pending-trip-info {
 		display: grid;
 		gap: 50px 50px;
 		grid-template-columns: auto auto;
