@@ -1,18 +1,11 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import dayjs from 'dayjs';
 import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-
 import Repository from './Repository';
+import Trip from './Trip';
 
-let travelersPromise = fetchData()
-let destinationsPromise = fetchDestinationData()
-let tripsPromise = fetchTripData()
+let travelersPromise
+let destinationsPromise
+let tripsPromise
 
 const welcomeBanner = document.getElementById('welcomeBanner')
 const welcomeBannerDashboard = document.getElementById('welcomeBannerDashboard')
@@ -20,6 +13,8 @@ const usernameField = document.getElementById('username')
 const passwordField = document.getElementById('password')
 const logInForm = document.getElementById('logInForm')
 const logInSection = document.getElementById('logInSection')
+const errorMessage = document.getElementById('errorMessage')
+const xButton = document.getElementById('xButton')
 const dashboardSection = document.getElementById('dashboardSection')
 const travelInputSection = document.getElementById('travelInputSection')
 const upcomingTripSection = document.getElementById('upcomingTripSection')
@@ -49,6 +44,9 @@ window.addEventListener('load', function () {
 logInForm.addEventListener('submit', (event) => {
 	login(event)
 })
+xButton.addEventListener('click', () => {
+	removeErrorMessage(true)
+})
 dashboardButton.addEventListener('click', showDashboard)
 newTripButon.addEventListener('click', showBookATrip)
 upcomingTripButon.addEventListener('click', showUpcomingTrips)
@@ -61,7 +59,6 @@ dataEntryForm.addEventListener('submit', (event) => {
 
 let repo
 let currentTraveler
-let currentTravelerId
 let destinations
 let trips
 let postData
@@ -74,12 +71,19 @@ function login(event) {
 		console.log('Incorrect password')
 		return
 	}
-	currentTravelerId = usernameToUserId(username)
+	let currentTravelerId = usernameToUserId(username)
+	let selectedTraveler = repo.findTravelerById(currentTravelerId)
+	if (!selectedTraveler) {
+		errorMessage.classList.remove('hidden')
+		console.log('There is no such traveler')
+		return -1
+	}
+	currentTraveler = selectedTraveler
 	showDashboard()
-	console.log(currentTravelerId)
 }
 function usernameToUserId(username) {
 	if (!username.startsWith('traveler')) {
+		errorMessage.classList.remove('hidden')
 		console.log(`${username} doesn't start with traveler`)
 		return -1
 	}
@@ -87,22 +91,30 @@ function usernameToUserId(username) {
 	const id = parseInt(usernameId)
 	if (isNaN(id)) {
 		console.log('traveler id is not a number')
+		errorMessage.classList.remove('hidden')
 		return -1
 	}
 	return id
 }
+function removeErrorMessage(state) {
+	if (state) {
+		errorMessage.classList.add('hidden')
+	} else {
+		errorMessage.classList.remove('hidden')
+	}
+}
 function resolvePromises() {
+	travelersPromise = fetchData('travelers')
+	destinationsPromise = fetchData('destinations')
+	tripsPromise = fetchData('trips')
 	Promise.all([travelersPromise, tripsPromise, destinationsPromise])
 		.then((values) => {
-			console.log(values)
 			parseData(values)
 		})
 }
 function parseData(values) {
 	repo = new Repository(values[0], values[1], values[2])
 	repo.initialize()
-	currentTraveler = repo.travelers[37]
-	showDashboard()
 }
 function showDashboard() {
 	totalValue.innerText = `$${currentTraveler.calculateTotalCost()}`
@@ -164,8 +176,8 @@ function showPendingTrips() {
 	dashboardSection.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
-function fetchData() {
-	const userURL = `http://localhost:3001/api/v1/travelers`;
+function fetchData(type) {
+	const userURL = `http://localhost:3001/api/v1/${type}`;
 	return fetch(userURL)
 		.then((response) => {
 			if (response.ok) {
@@ -174,51 +186,14 @@ function fetchData() {
 			throw Promise.reject(response)
 		})
 		.then((data) => {
-			console.log(data)
-			return data.travelers
+			return data[type]
 		})
 		.catch((response) => {
 			console.log('Something went wrong: ', response);
-		});
-}
-function fetchDestinationData() {
-	const URL = `http://localhost:3001/api/v1/destinations`;
-	return fetch(URL)
-		.then((response) => {
-			if (response.ok) {
-				return response.json()
-			}
-			throw Promise.reject(response)
 		})
-		.then((data) => {
-			destinations = data.destinations
-			console.log(destinations)
-			return destinations
-		})
-		.catch((response) => {
-			console.log('Something went wrong: ', response);
-		});
-}
-function fetchTripData() {
-	const URL = `http://localhost:3001/api/v1/trips`;
-	return fetch(URL)
-		.then((response) => {
-			if (response.ok) {
-				return response.json()
-			}
-			throw Promise.reject(response)
-		})
-		.then((data) => {
-			trips = data.trips
-			return trips
-		})
-		.catch((response) => {
-			console.log('Something went wrong: ', response);
-		});
 }
 let postTrip = (postData) => {
-	console.log(postData)
-	fetch('http://localhost:3001/api/v1/trips', {
+	return fetch('http://localhost:3001/api/v1/trips', {
 		method: 'POST',
 		body: JSON.stringify(postData),
 		headers: { 'Content-Type': 'application/json' }
@@ -226,11 +201,16 @@ let postTrip = (postData) => {
 		.then(response => {
 			if (!response.ok) {
 				throw new Error("Data failed to post")
-			} else {
+			}
+			else {
 				return response.json()
 			}
 		})
-		.then(data => console.log('DATA', data))
+		.then(data => {
+			let newTrip = new Trip(data.newTrip)
+			newTrip.destination = repo.findDestination(newTrip.destinationID)
+			return newTrip
+		})
 		.catch(error => console.log(error.message))
 }
 function displayBookATrip() {
@@ -254,16 +234,15 @@ function displayPastTrips() {
 	displayTrips(pastTripInfo, pastTrips)
 }
 function displayPendingTrips() {
-	const pendingTrips = currentTraveler.trips.filter(trip => trip.status !== 'approved')
+	const pendingTrips = repo.findTravelerById(currentTraveler.id).trips.filter(trip => trip.status !== 'approved')
 	displayTrips(pendingTripInfo, pendingTrips)
 }
-function submitFormData(event) {
+async function submitFormData(event) {
 	event.preventDefault()
 	const formData = new FormData(dataEntryForm)
 	const values = [...formData.entries()]
-	console.log(values)
 	postData = {}
-	postData.id = +(trips.length+1)
+	postData.id = +(trips.length + 1)
 	postData.userID = +currentTraveler.id
 	postData.status = 'pending'
 	postData.suggestedActivities = []
@@ -285,26 +264,22 @@ function submitFormData(event) {
 				break
 		}
 	})
-	console.log(postData)
-	// let result = await postTrip(postData)
-	// console.log(results)
-	postTrip(postData)
-	// repo.initialize()
+	let postedTrip = await postTrip(postData)
+	repo.trips.push(postedTrip)
+	currentTraveler.trips.push(postedTrip)
 	displayCost(postData)
 }
 function displayCost(newTrip) {
 	const destination = destinations.find(destination => newTrip.destinationID === destination.id)
 	const total = +(destination.estimatedLodgingCostPerDay * newTrip.duration) + (destination.estimatedFlightCostPerPerson * newTrip.travelers)
 	estimatedLodgingCostPerDay.innerText = `Estimated cost of lodging per day for this trip ${destination.estimatedLodgingCostPerDay}`
-	estimatedFlightCostPerPerson.innerText = `Estimated cost of flights for each person ${destination.estimatedFlightCostPerPerson}` 
+	estimatedFlightCostPerPerson.innerText = `Estimated cost of flights for each person ${destination.estimatedFlightCostPerPerson}`
 	numberOfPeople.innerText = `${newTrip.travelers} person(s) are traveling on this trip`
-	agentFee.innerText = `10% agent fee, ${(total*0.1).toFixed(2)}`
-	estimatedCost.innerText = `$${(total*1.1).toFixed(2)}`
+	agentFee.innerText = `10% agent fee, ${(total * 0.1).toFixed(2)}`
+	estimatedCost.innerText = `$${(total * 1.1).toFixed(2)}`
 }
 function clearAllInputs() {
 	allInputs.forEach(input => {
-    input.value = '';
-  });
+		input.value = ''
+	})
 }
-
-	// {id: <number>, userID: <number>, destinationID: <number>, travelers: <number>, date: <string 'YYYY/MM/DD'>, duration: <number>, status: <string 'approved' or 'pending'>, suggestedActivities: <array of strings>}

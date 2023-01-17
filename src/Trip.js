@@ -8,7 +8,7 @@ class Trip {
 		this.date = tripInfo.date
 		this.duration = tripInfo.duration
 		this.status = tripInfo.status
-		this.suggestedActivities = []
+		this.suggestedActivities = tripInfo.suggestedActivities
 	}
 }
 
