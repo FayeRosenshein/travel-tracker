@@ -237,35 +237,25 @@ function displayBookATrip() {
 	destinationDropDown.innerHTML = '<option value="1">please choose a location</option>'
 	repo.destinations.forEach(destination => destinationDropDown.innerHTML += `<option value="${destination.id}" >${destination.name}</option>`)
 }
+function displayTrips(type, array) {
+	type.innerHTML = ``
+	array.forEach(trip => type.innerHTML += `<div class="trip-info">
+	<p class="destination">DESTINATION: ${trip.destination.name}</p>
+	<P class="date">STARTING DATE: ${trip.date}</P>
+	<P class="number">NUMBER OF PEOPLE: ${trip.travelers}</P>
+	</div`)
+}
 function displayUpcomingTrips() {
-	console.log(currentTraveler.trips)
 	const upcomingTrips = currentTraveler.trips.filter(trip => dayjs(trip.date) >= dayjs(Date.now()) && trip.status === 'approved')
-	upcomingTripInfo.innerHTML = ``
-	upcomingTrips.forEach(trip => upcomingTripInfo.innerHTML += `<article class="trip-info">
-	<p class="upcoming-trip destination">DESTINATION: ${trip.destination.name}</p>
-	<P class="upcoming-trip date">STARTING DATE ${trip.date}</P>
-	<P class="upcoming-trip number">NUMBER OF PEOPLE: ${trip.travelers}</P>
-	</article`)
+	displayTrips(upcomingTripInfo, upcomingTrips)
 }
 function displayPastTrips() {
-	console.log(currentTraveler.trips)
 	const pastTrips = currentTraveler.trips.filter(trip => dayjs(trip.date) < dayjs(Date.now()) && trip.status === 'approved')
-	pastTripInfo.innerHTML = ``
-	pastTrips.forEach(trip => pastTripInfo.innerHTML += `<article class="trip-info">
-	<p class="destination">DESTINATION: ${trip.destination.name}</p>
-	<P class="date">STARTING DATE ${trip.date}</P>
-	<P class="number">NUMBER OF PEOPLE: ${trip.travelers}</P>
-	</article`)
+	displayTrips(pastTripInfo, pastTrips)
 }
 function displayPendingTrips() {
-	console.log(currentTraveler.trips)
 	const pendingTrips = currentTraveler.trips.filter(trip => trip.status !== 'approved')
-	pendingTripInfo.innerHTML = ``
-	pendingTrips.forEach(trip => pendingTripInfo.innerHTML += `<article class="trip-info">
-	<p class="destination">DESTINATION: ${trip.destination.name}</p>
-	<P class="date">STARTING DATE ${trip.date}</P>
-	<P class="number">NUMBER OF PEOPLE: ${trip.travelers}</P>
-	</article`)
+	displayTrips(pendingTripInfo, pendingTrips)
 }
 function submitFormData(event) {
 	event.preventDefault()
@@ -273,7 +263,7 @@ function submitFormData(event) {
 	const values = [...formData.entries()]
 	console.log(values)
 	postData = {}
-	postData.id = 2005
+	postData.id = +(trips.length+1)
 	postData.userID = +currentTraveler.id
 	postData.status = 'pending'
 	postData.suggestedActivities = []
@@ -308,7 +298,7 @@ function displayCost(newTrip) {
 	estimatedLodgingCostPerDay.innerText = `Estimated cost of lodging per day for this trip ${destination.estimatedLodgingCostPerDay}`
 	estimatedFlightCostPerPerson.innerText = `Estimated cost of flights for each person ${destination.estimatedFlightCostPerPerson}` 
 	numberOfPeople.innerText = `${newTrip.travelers} person(s) are traveling on this trip`
-	agentFee.innerText = `10%, ${(total*0.1).toFixed(2)}`
+	agentFee.innerText = `10% agent fee, ${(total*0.1).toFixed(2)}`
 	estimatedCost.innerText = `$${(total*1.1).toFixed(2)}`
 }
 function clearAllInputs() {

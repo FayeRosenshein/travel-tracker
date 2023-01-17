@@ -1,6 +1,5 @@
 body {
 	margin: 0px;
-	;
 	background-color: #CB5C00;
 }
 
@@ -60,6 +59,7 @@ body {
 }
 
 .new-trips {
+	margin: 10px;
 	background-image: url('/dist/assets/littleBus3.png');
 }
 
@@ -100,9 +100,13 @@ body {
 	border: 1px solid black
 }
 
+.total-value {
+	color: #1E44B6;
+}
+
 .trip-info {
 	width: 70vw;
-	height: 45vh;
+	height: 35vh;
 	background-color: rgba(230, 230, 230, .7);
 	display: flex;
 	justify-content: space-between;
@@ -118,19 +122,14 @@ body {
 	justify-content: flex-end;
 }
 
-.cost {
-	height: 30vh;
-	width: 85vw;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 2px solid black;
-}
-
 .total-cost-single-trip {
-	height: 25vh;
-	width: 65vw;
+	margin: 10px;
+	height: 40vh;
+	width: 85vw;
 	background-color: #E6E6E6;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 }
 
 .travel-input-section,
@@ -142,6 +141,13 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.data-entry-form {
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
 .trip-info {
@@ -167,6 +173,7 @@ body {
 
 @media (min-width: 740px) {
 	.new-trips {
+		margin: 15px;
 		background-image: url('/dist/assets/littleBus3\ 2.png');
 	}
 
@@ -185,13 +192,18 @@ body {
 	.past-trip-info {
 		display: grid;
 		gap: 50px 50px;
-		grid-template-columns: auto auto auto;
+		grid-template-columns: auto auto;
 		padding: 10px;
 	}
 
-	.grid-item {
-		width: 30vw;
+	.trip-info {
+		width: 40vw;
 		padding: 20px;
-		text-align: center;
+	}
+
+	.destination,
+	.date,
+	.number {
+		width: 30vw;
 	}
 }
