@@ -28,6 +28,11 @@ class Repository {
 			this.travelers.push(newTraveler)
 		})
 	}
+	findTravelerById(id) {
+		return this.travelers.find(traveler => {
+			return traveler.id === id
+		})
+	}
 	findTripsByTravelerId(id) {
 		const filterTrips = this.trips.filter(trip => {
 			return trip.userID === id

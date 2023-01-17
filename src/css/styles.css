@@ -28,10 +28,18 @@ body {
 	margin-right: 20px;
 }
 
+.error-message {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .log-in-section {
 	margin: 0px;
-	padding: 100px;
+	padding-top: 100px;
 	height: 100vh;
+	display: flex;
+	justify-content: center;
 	background-image: url('/dist/assets/homeBus.png');
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -124,6 +132,7 @@ body {
 
 .total-cost-single-trip {
 	margin: 10px;
+	padding-left: 10px;
 	height: 40vh;
 	width: 85vw;
 	background-color: #E6E6E6;
@@ -172,6 +181,10 @@ body {
 }
 
 @media (min-width: 740px) {
+	.log-in-section {
+		background-image: url('/dist/assets/homeBusDesktop.png');
+	}
+
 	.new-trips {
 		margin: 15px;
 		background-image: url('/dist/assets/littleBus3\ 2.png');

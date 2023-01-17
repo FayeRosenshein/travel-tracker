@@ -9,10 +9,11 @@ import './css/styles.css';
 import './images/turing-logo.png'
 
 import Repository from './Repository';
+import Trip from './Trip';
 
-let travelersPromise = fetchData()
-let destinationsPromise = fetchDestinationData()
-let tripsPromise = fetchTripData()
+let travelersPromise
+let destinationsPromise
+let tripsPromise
 
 const welcomeBanner = document.getElementById('welcomeBanner')
 const welcomeBannerDashboard = document.getElementById('welcomeBannerDashboard')
@@ -20,6 +21,8 @@ const usernameField = document.getElementById('username')
 const passwordField = document.getElementById('password')
 const logInForm = document.getElementById('logInForm')
 const logInSection = document.getElementById('logInSection')
+const errorMessage = document.getElementById('errorMessage')
+const xButton = document.getElementById('xButton')
 const dashboardSection = document.getElementById('dashboardSection')
 const travelInputSection = document.getElementById('travelInputSection')
 const upcomingTripSection = document.getElementById('upcomingTripSection')
@@ -49,6 +52,9 @@ window.addEventListener('load', function () {
 logInForm.addEventListener('submit', (event) => {
 	login(event)
 })
+xButton.addEventListener('click', () => {
+	removeErrorMessage(true)
+})
 dashboardButton.addEventListener('click', showDashboard)
 newTripButon.addEventListener('click', showBookATrip)
 upcomingTripButon.addEventListener('click', showUpcomingTrips)
@@ -61,7 +67,6 @@ dataEntryForm.addEventListener('submit', (event) => {
 
 let repo
 let currentTraveler
-let currentTravelerId
 let destinations
 let trips
 let postData
@@ -74,12 +79,20 @@ function login(event) {
 		console.log('Incorrect password')
 		return
 	}
-	currentTravelerId = usernameToUserId(username)
+	let currentTravelerId = usernameToUserId(username)
+	let selectedTraveler = repo.findTravelerById(currentTravelerId)
+	if (!selectedTraveler) {
+		errorMessage.classList.remove('hidden')
+		console.log('There is no such traveler')
+		return -1
+	}
+	currentTraveler = selectedTraveler
 	showDashboard()
 	console.log(currentTravelerId)
 }
 function usernameToUserId(username) {
 	if (!username.startsWith('traveler')) {
+		errorMessage.classList.remove('hidden')
 		console.log(`${username} doesn't start with traveler`)
 		return -1
 	}
@@ -87,11 +100,22 @@ function usernameToUserId(username) {
 	const id = parseInt(usernameId)
 	if (isNaN(id)) {
 		console.log('traveler id is not a number')
+		errorMessage.classList.remove('hidden')
 		return -1
 	}
 	return id
 }
+function removeErrorMessage(state) {
+	if (state) {
+		errorMessage.classList.add('hidden')
+	} else {
+		errorMessage.classList.remove('hidden')
+	}
+}
 function resolvePromises() {
+	travelersPromise = fetchData()
+	destinationsPromise = fetchDestinationData()
+	tripsPromise = fetchTripData()
 	Promise.all([travelersPromise, tripsPromise, destinationsPromise])
 		.then((values) => {
 			console.log(values)
@@ -101,8 +125,6 @@ function resolvePromises() {
 function parseData(values) {
 	repo = new Repository(values[0], values[1], values[2])
 	repo.initialize()
-	currentTraveler = repo.travelers[37]
-	showDashboard()
 }
 function showDashboard() {
 	totalValue.innerText = `$${currentTraveler.calculateTotalCost()}`
@@ -226,11 +248,18 @@ let postTrip = (postData) => {
 		.then(response => {
 			if (!response.ok) {
 				throw new Error("Data failed to post")
-			} else {
+			}
+			else {
 				return response.json()
 			}
 		})
-		.then(data => console.log('DATA', data))
+		.then(data => {
+			console.log(data)
+			let newTrip = new Trip(data)
+			console.log('newTrip', data.newTrip)
+			return newTrip
+		})
+		// .then(data => console.log('DATA', data))
 		.catch(error => console.log(error.message))
 }
 function displayBookATrip() {
@@ -257,13 +286,13 @@ function displayPendingTrips() {
 	const pendingTrips = currentTraveler.trips.filter(trip => trip.status !== 'approved')
 	displayTrips(pendingTripInfo, pendingTrips)
 }
-function submitFormData(event) {
+async function submitFormData(event) {
 	event.preventDefault()
 	const formData = new FormData(dataEntryForm)
 	const values = [...formData.entries()]
 	console.log(values)
 	postData = {}
-	postData.id = +(trips.length+1)
+	postData.id = +(trips.length + 1)
 	postData.userID = +currentTraveler.id
 	postData.status = 'pending'
 	postData.suggestedActivities = []
@@ -288,23 +317,35 @@ function submitFormData(event) {
 	console.log(postData)
 	// let result = await postTrip(postData)
 	// console.log(results)
-	postTrip(postData)
-	// repo.initialize()
+	let postedTrip = await postTrip(postData)
+	resolvePromises()
+	currentTraveler = repo.findTravelerById(currentTraveler.id)
+	console.log(postedTrip)
+	// repo.trips.push(postedTrip)
+	// currentTraveler.trips.push(postedTrip)
+	// console.log(postedTrip)
 	displayCost(postData)
 }
 function displayCost(newTrip) {
 	const destination = destinations.find(destination => newTrip.destinationID === destination.id)
 	const total = +(destination.estimatedLodgingCostPerDay * newTrip.duration) + (destination.estimatedFlightCostPerPerson * newTrip.travelers)
 	estimatedLodgingCostPerDay.innerText = `Estimated cost of lodging per day for this trip ${destination.estimatedLodgingCostPerDay}`
-	estimatedFlightCostPerPerson.innerText = `Estimated cost of flights for each person ${destination.estimatedFlightCostPerPerson}` 
+	estimatedFlightCostPerPerson.innerText = `Estimated cost of flights for each person ${destination.estimatedFlightCostPerPerson}`
 	numberOfPeople.innerText = `${newTrip.travelers} person(s) are traveling on this trip`
-	agentFee.innerText = `10% agent fee, ${(total*0.1).toFixed(2)}`
-	estimatedCost.innerText = `$${(total*1.1).toFixed(2)}`
+	agentFee.innerText = `10% agent fee, ${(total * 0.1).toFixed(2)}`
+	estimatedCost.innerText = `$${(total * 1.1).toFixed(2)}`
 }
 function clearAllInputs() {
 	allInputs.forEach(input => {
-    input.value = '';
-  });
+		input.value = '';
+	});
+}
+function clearEstimatedCost() {
+	estimatedLodgingCostPerDay.innerText = ''
+	estimatedFlightCostPerPerson.innerText = ''
+	numberOfPeople.innerText = ''
+	agentFee.innerText = ''
+	estimatedCost.innerText = ''
 }
 
 	// {id: <number>, userID: <number>, destinationID: <number>, travelers: <number>, date: <string 'YYYY/MM/DD'>, duration: <number>, status: <string 'approved' or 'pending'>, suggestedActivities: <array of strings>}
