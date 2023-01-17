@@ -104,9 +104,9 @@ function removeErrorMessage(state) {
 	}
 }
 function resolvePromises() {
-	travelersPromise = fetchData('travelers')
-	destinationsPromise = fetchData('destinations')
-	tripsPromise = fetchData('trips')
+	travelersPromise = fetchData()
+	destinationsPromise = fetchDestinationData()
+	tripsPromise = fetchTripData()
 	Promise.all([travelersPromise, tripsPromise, destinationsPromise])
 		.then((values) => {
 			parseData(values)
@@ -176,8 +176,8 @@ function showPendingTrips() {
 	dashboardSection.classList.add('hidden')
 	logInSection.classList.add('hidden')
 }
-function fetchData(type) {
-	const userURL = `http://localhost:3001/api/v1/${type}`;
+function fetchData() {
+	const userURL = `http://localhost:3001/api/v1/travelers`;
 	return fetch(userURL)
 		.then((response) => {
 			if (response.ok) {
@@ -186,11 +186,45 @@ function fetchData(type) {
 			throw Promise.reject(response)
 		})
 		.then((data) => {
-			return data[type]
+			return data.travelers
 		})
 		.catch((response) => {
 			console.log('Something went wrong: ', response);
+		});
+}
+function fetchDestinationData() {
+	const URL = `http://localhost:3001/api/v1/destinations`;
+	return fetch(URL)
+		.then((response) => {
+			if (response.ok) {
+				return response.json()
+			}
+			throw Promise.reject(response)
 		})
+		.then((data) => {
+			destinations = data.destinations
+			return destinations
+		})
+		.catch((response) => {
+			console.log('Something went wrong: ', response);
+		});
+}
+function fetchTripData() {
+	const URL = `http://localhost:3001/api/v1/trips`;
+	return fetch(URL)
+		.then((response) => {
+			if (response.ok) {
+				return response.json()
+			}
+			throw Promise.reject(response)
+		})
+		.then((data) => {
+			trips = data.trips
+			return trips
+		})
+		.catch((response) => {
+			console.log('Something went wrong: ', response);
+		});
 }
 let postTrip = (postData) => {
 	return fetch('http://localhost:3001/api/v1/trips', {
